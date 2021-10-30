@@ -24,15 +24,49 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header .controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: calc(100vw * 0.15 / 2);
+  width: 100%;
+  gap: 20px;
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.play-button,
+.pause-button {
+  width: calc(100vw * 0.12 / 2);
+  height: calc(100vh * 0.12 / 2);
+}
+
+.outer_circle {
+  stroke-width: 3;
+  stroke-dasharray: 410;
+  stroke-dashoffset: 0;
+  stroke-linecap: square;
+  transition: all 0.4s ease-out;
+}
+
+.play-button:hover .outer_circle,
+.pause-button:hover .outer_circle {
+  stroke-dashoffset: 410;
+  transition: stroke 0.7s 0.4s ease-out, stroke-dashoffset 0.4s ease-out;
+}
+
+.play-button:hover .inner-circle,
+.pause-button:hover .inner-circle {
+  fill: #bf2428;
+  transition: fill 0.4s 0.3s ease-out;
+}
+
+.play-button:hover .play,
+.pause-button:hover .pause {
+  fill: white;
+  stroke: white;
+  transition: fill 0.4s 0.3s ease-out, stroke 0.4s 0.3s ease-out;
 }
