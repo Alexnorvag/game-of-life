@@ -1,0 +1,7 @@
+<svg class='pause-button' viewBox="0 0 131 131" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <path class="inner-circle" d="M65 21C40.1488 21 20 41.1488 20 66C20 90.8512 40.1488 111 65 111C89.8512 111 110 90.8512 110 66C110 41.1488 89.8512 21 65 21Z" fill="white"></path>
+    <circle class="outer_circle" cx="65.5" cy="65.5" r="64" stroke="white"></circle>
+    <line class='pause' stroke="#BF2428" stroke-width="10" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="80.68018" x2="73.51527" y1="50.31982" x1="73.56992" fill="none"/>
+    <line class='pause' stroke="#BF2428" stroke-width="10" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="80.68018" x2="57.43008" y1="50.31982" x1="57.48473" fill="none"/>
+</svg>
