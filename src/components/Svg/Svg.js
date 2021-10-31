@@ -3,6 +3,8 @@ import { useRef } from "react";
 const Svg = ({ width, height, children }) => {
   const ref = useRef();
 
+  console.log("[SVG] -> render");
+
   return (
     <svg
       ref={ref}

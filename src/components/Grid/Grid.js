@@ -1,15 +1,15 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import * as d3 from "d3";
 
 import "./Grid.css";
 
-const Grid = ({ data, squareSize, svgRef, radius }) => {
-  const rectx = useCallback((d) => d.x - radius, [radius]);
-  const recty = useCallback((d) => d.y - radius, [radius]);
+const Grid = ({ data, svgRef, squareSize }) => {
+  console.log("[Grid] -> render");
 
   useEffect(() => {
+    if (!data) return;
+
     const board = d3.select(svgRef.current);
-    // console.log('[GRID] -> data: ', data);
     const cell = board.selectAll(".cell").data(data);
 
     cell.attr("class", function (d) {
@@ -22,10 +22,11 @@ const Grid = ({ data, squareSize, svgRef, radius }) => {
       .attr("class", function (d) {
         return "cell " + (d.alive ? "alive" : "dead");
       })
-      .attr("x", rectx)
-      .attr("y", recty)
+      .attr("x", (d) => d.x)
+      .attr("y", (d) => d.y)
       .attr("width", squareSize)
       .attr("height", squareSize);
+
     // .each(function (d) {
     //   d3.select(this).on("mousedown", function (d) {
     //     // isMouseDown = true;
@@ -45,7 +46,7 @@ const Grid = ({ data, squareSize, svgRef, radius }) => {
     // });
 
     cell.exit().remove();
-  }, [data, radius, squareSize, rectx, recty, svgRef]);
+  }, [data, squareSize, svgRef]);
 
   return null;
 
