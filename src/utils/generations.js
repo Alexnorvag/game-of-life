@@ -16,3 +16,9 @@ export const cellsGenerate = (rows, columns, squareSize) => {
 
   return cells;
 };
+
+export const firstGeneration = (length) => {
+  console.log("[FIRST GENERATION] -> render");
+  const generation = Array.from({ length }, () => Math.random() > 0.5);
+  return generation;
+};

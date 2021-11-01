@@ -1,6 +1,4 @@
-import GameLayout from "./layout/Game";
-import Svg from "./components/Svg/Svg";
-import Grid from "./components/Grid/Grid";
+import GameContainer from "./layout/GameContainer";
 
 import "./App.css";
 
@@ -10,15 +8,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <GameLayout>
-          {(width, height, cells, squareSize) => (
-            <Svg width={width} height={height}>
-              {(ref) => (
-                <Grid svgRef={ref} data={cells} squareSize={squareSize} />
-              )}
-            </Svg>
-          )}
-        </GameLayout>
+        <GameContainer />
       </header>
     </div>
   );

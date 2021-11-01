@@ -1,0 +1,9 @@
+.game-of-life rect.cell.alive {
+  fill: #000;
+  /* fill: #f0cdaa; */
+}
+
+.game-of-life rect.cell.dead {
+  fill: #fff;
+  /* fill: #f0aaad; */
+}

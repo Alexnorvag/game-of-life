@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
 export const useWindowSize = ({ margin = 0 }) => {
-  const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0,
-  });
-
   const getDimensionSize = (dimension, margin) =>
     dimension - (dimension * margin) / 100;
 
@@ -20,14 +15,14 @@ export const useWindowSize = ({ margin = 0 }) => {
     };
   }, [margin]);
 
+  const [windowSize, setWindowSize] = useState({ ...getSize() });
+
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({ ...getSize() });
     };
 
     window.addEventListener("resize", handleResize);
-
-    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, [getSize]);

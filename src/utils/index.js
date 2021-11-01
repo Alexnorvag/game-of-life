@@ -1,2 +1,2 @@
-export { cellsGenerate } from "./generations";
+export { cellsGenerate, firstGeneration } from "./generations";
 export { prevDividend } from "./numbers";
