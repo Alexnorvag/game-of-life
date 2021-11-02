@@ -1,19 +1,12 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 
-const Svg = ({ width, height, children }) => {
-  const ref = useRef();
-
-  return (
-    <svg
-      ref={ref}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      style={{ border: "2px solid gold" }}
-    >
-      {children(ref)}
-    </svg>
-  );
-};
+const Svg = forwardRef(({ width, height }, ref) => (
+  <svg
+    ref={ref}
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+  />
+));
 
 export default Svg;

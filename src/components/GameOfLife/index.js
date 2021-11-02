@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 import { useGameData } from "./hooks/useGameData";
 import { useRect } from "../../hooks";
 import GameControls from "./components/GameOfLifeControls";
-import Svg from "../../layout/GameContainer/components/Svg";
+import Svg from "../Svg/Svg";
 
 import "./index.css";
 
@@ -11,7 +11,7 @@ const GameOfLife = ({ width, height }) => {
   const { data, squareSize, boardSize, isGameRun, toggleGameRun } = useGameData(
     {
       size: { width, height },
-      runTime: 50,
+      updateTime: 50,
       squareSize: 10,
     }
   );

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { cellsGenerate, prevDividend } from "../../../utils";
 
-export const useGameData = ({ size, squareSize, runTime }) => {
+export const useGameData = ({ size, squareSize, updateTime }) => {
   const [running, setRunning] = useState(false);
   const timerId = useRef(0);
 
@@ -68,13 +68,13 @@ export const useGameData = ({ size, squareSize, runTime }) => {
 
   useEffect(() => {
     if (running) {
-      timerId.current = setInterval(runGame, runTime);
+      timerId.current = setInterval(runGame, updateTime);
     } else {
       clearInterval(timerId.current);
     }
 
     return () => clearInterval(timerId.current);
-  }, [running, runGame, runTime]);
+  }, [running, runGame, updateTime]);
 
   return {
     data,
