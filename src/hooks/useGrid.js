@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 
 export const useGrid = ({ svgEl, size, squareSize }) => {
-  console.log("[USE GRID] -> render");
   const x = d3.scaleLinear().range([0, size.width]);
   const y = d3.scaleLinear().range([size.height, 0]);
 

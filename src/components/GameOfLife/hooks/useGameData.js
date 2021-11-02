@@ -17,15 +17,19 @@ export const useGameData = ({ size }) => {
     () => (boardSize.width * boardSize.height) / Math.pow(squareSize, 2),
     [boardSize, squareSize]
   );
+
   const [data, setData] = useState(() => firstGeneration(cellsNumber));
 
-  const getDataIndex = (neighbourIdx, dataLenght) => {
-    if (neighbourIdx < 0) {
-      return dataLenght - neighbourIdx + 1;
-    }
+  const getDataIndex = useCallback(
+    (neighbourIdx) => {
+      if (neighbourIdx < 0) {
+        return cellsNumber - neighbourIdx + 1;
+      }
 
-    return neighbourIdx;
-  };
+      return neighbourIdx;
+    },
+    [cellsNumber]
+  );
 
   const colsNumber = useMemo(
     () => boardSize.width / squareSize,
@@ -35,26 +39,18 @@ export const useGameData = ({ size }) => {
   const findNeighbors = useCallback(
     (cellIdx) => {
       let neighbours = [];
-      neighbours.push(
-        data[getDataIndex(cellIdx - colsNumber - 1, data.length)]
-      );
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber, data.length)]);
-      neighbours.push(
-        data[getDataIndex(cellIdx - colsNumber + 1, data.length)]
-      );
-      neighbours.push(data[getDataIndex(cellIdx - 1, data.length)]);
-      neighbours.push(data[getDataIndex(cellIdx + 1, data.length)]);
-      neighbours.push(
-        data[getDataIndex(cellIdx + colsNumber - 1, data.length)]
-      );
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber, data.length)]);
-      neighbours.push(
-        data[getDataIndex(cellIdx + colsNumber + 1, data.length)]
-      );
+      neighbours.push(data[getDataIndex(cellIdx - colsNumber - 1)]);
+      neighbours.push(data[getDataIndex(cellIdx - colsNumber)]);
+      neighbours.push(data[getDataIndex(cellIdx - colsNumber + 1)]);
+      neighbours.push(data[getDataIndex(cellIdx - 1)]);
+      neighbours.push(data[getDataIndex(cellIdx + 1)]);
+      neighbours.push(data[getDataIndex(cellIdx + colsNumber - 1)]);
+      neighbours.push(data[getDataIndex(cellIdx + colsNumber)]);
+      neighbours.push(data[getDataIndex(cellIdx + colsNumber + 1)]);
 
       return neighbours.filter((neighbour) => neighbour);
     },
-    [data, colsNumber]
+    [data, colsNumber, getDataIndex]
   );
 
   const updateCellState = useCallback(

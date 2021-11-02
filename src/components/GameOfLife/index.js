@@ -3,18 +3,16 @@ import { useRef, useEffect, useState } from "react";
 import Svg from "../../layout/GameContainer/components/Svg";
 import GameControls from "./components/GameOfLifeControls";
 import { useGameData } from "./hooks/useGameData";
-import { /* useGrid, */ useRect } from "../../hooks";
+import { useRect } from "../../hooks";
 
 import "./index.css";
 
 const GameOfLife = ({ width, height }) => {
-  console.log("[GAME OF LIFE] -> render");
   const { data, squareSize, boardSize, runGame } = useGameData({
     size: { width, height },
   });
 
   const svgEl = useRef();
-  // const { createGrid } = useGrid({ svgEl, size: boardSize, squareSize });
 
   const { createRectangles } = useRect({
     svgEl,

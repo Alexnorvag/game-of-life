@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import { useCallback } from "react";
 
 export const useRect = ({ svgEl, size, squareSize }) => {
-  console.log("[USE RECT] -> render");
   const xScale = d3
     .scaleLinear()
     .domain([0, size.width / squareSize])
@@ -25,11 +24,7 @@ export const useRect = ({ svgEl, size, squareSize }) => {
     (data) => {
       const svg = d3.select(svgEl.current);
 
-      const cells = svg
-        // .append("g")
-        // .attr("class", "cells")
-        .selectAll(".cell")
-        .data(data);
+      const cells = svg.selectAll(".cell").data(data);
 
       cells.join(
         (enter) =>
@@ -47,6 +42,7 @@ export const useRect = ({ svgEl, size, squareSize }) => {
             .attr("y", (_, i) => yScale(rowNumber(i)))
             .attr("width", squareSize)
             .attr("height", squareSize),
+
         (exit) => exit.call((exit) => exit.remove())
       );
     },

@@ -6,7 +6,7 @@ const Svg = forwardRef(({ width, height }, ref) => (
     width={width}
     height={height}
     viewBox={`0 0 ${width} ${height}`}
-    style={{ border: "2px solid gold" }}
+    style={{ border: "2px solid #bf2428" }}
   />
 ));
 
