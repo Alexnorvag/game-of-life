@@ -1,78 +1,87 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { firstGeneration, prevDividend } from "../../../utils";
+import { cellsGenerate, prevDividend } from "../../../utils";
 
-export const useGameData = ({ size }) => {
-  const squareSize = 10;
+export const useGameData = ({ size, squareSize, runTime }) => {
+  const [running, setRunning] = useState(false);
+  const timerId = useRef(0);
 
   const boardSize = useMemo(
     () => ({
       width: prevDividend(size.width, squareSize),
       height: prevDividend(size.height, squareSize),
     }),
-    [size]
-  );
-
-  const cellsNumber = useMemo(
-    () => (boardSize.width * boardSize.height) / Math.pow(squareSize, 2),
-    [boardSize, squareSize]
-  );
-
-  const [data, setData] = useState(() => firstGeneration(cellsNumber));
-
-  const getDataIndex = useCallback(
-    (neighbourIdx) => {
-      if (neighbourIdx < 0) {
-        return cellsNumber - neighbourIdx + 1;
-      }
-
-      return neighbourIdx;
-    },
-    [cellsNumber]
+    [size, squareSize]
   );
 
   const colsNumber = useMemo(
     () => boardSize.width / squareSize,
     [boardSize, squareSize]
   );
+  const rowsNumber = useMemo(
+    () => boardSize.height / squareSize,
+    [boardSize, squareSize]
+  );
+
+  const [data, setData] = useState(() =>
+    cellsGenerate({ columns: colsNumber, rows: rowsNumber, squareSize })
+  );
 
   const findNeighbors = useCallback(
-    (cellIdx) => {
+    (cell) => {
       let neighbours = [];
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber)]);
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber + 1)]);
-      neighbours.push(data[getDataIndex(cellIdx - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber + 1)]);
 
-      return neighbours.filter((neighbour) => neighbour);
+      const { r, c } = cell;
+      neighbours.push(data[(r - 1) * colsNumber + (c - 1)]);
+      neighbours.push(data[r * colsNumber + (c - 1)]);
+      neighbours.push(data[(r + 1) * colsNumber + (c - 1)]);
+      neighbours.push(data[(r - 1) * colsNumber + c]);
+      neighbours.push(data[(r + 1) * colsNumber + c]);
+      neighbours.push(data[(r - 1) * colsNumber + (c + 1)]);
+      neighbours.push(data[r * colsNumber + (c + 1)]);
+      neighbours.push(data[(r + 1) * colsNumber + (c + 1)]);
+
+      return neighbours.filter((neighbour) => neighbour && neighbour.alive);
     },
-    [data, colsNumber, getDataIndex]
+    [data, colsNumber]
   );
 
   const updateCellState = useCallback(
-    (cell, cellIdx) => {
-      const neighbours = findNeighbors(cellIdx);
+    (cell) => {
+      const neighbours = findNeighbors(cell);
 
-      return cell
-        ? neighbours.length >= 2 && neighbours.length <= 3
-        : neighbours.length === 3;
+      return {
+        ...cell,
+        alive: cell.alive
+          ? neighbours.length >= 2 && neighbours.length <= 3
+          : neighbours.length === 3,
+      };
     },
     [findNeighbors]
   );
+
+  const toggleGameRun = () => setRunning((s) => !s);
 
   const runGame = useCallback(() => {
     setData((c) => c.map(updateCellState));
   }, [updateCellState]);
 
+  useEffect(() => {
+    if (running) {
+      timerId.current = setInterval(runGame, runTime);
+    } else {
+      clearInterval(timerId.current);
+    }
+
+    return () => clearInterval(timerId.current);
+  }, [running, runGame, runTime]);
+
   return {
     data,
     squareSize,
     boardSize,
+    isGameRun: running,
 
-    runGame,
+    toggleGameRun,
   };
 };

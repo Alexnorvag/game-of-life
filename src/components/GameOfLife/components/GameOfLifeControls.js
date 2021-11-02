@@ -1,10 +1,10 @@
 import { ReactComponent as PlayIcon } from "../../../assets/svg/play.svg";
 import { ReactComponent as PauseIcon } from "../../../assets/svg/pause.svg";
 
-const GameControls = ({ onClick, isRunning }) => {
+const GameControls = ({ onClick, isStart }) => {
   return (
     <div className="controls">
-      {isRunning ? (
+      {isStart ? (
         <PauseIcon onClick={onClick} />
       ) : (
         <PlayIcon onClick={onClick} />

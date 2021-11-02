@@ -4,8 +4,6 @@ import * as d3 from "d3";
 import "./Grid.css";
 
 const Grid = ({ data, svgRef, squareSize }) => {
-  console.log("[Grid] -> render");
-
   useEffect(() => {
     if (!data) return;
 

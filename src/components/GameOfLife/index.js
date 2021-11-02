@@ -1,49 +1,33 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
-import Svg from "../../layout/GameContainer/components/Svg";
-import GameControls from "./components/GameOfLifeControls";
 import { useGameData } from "./hooks/useGameData";
 import { useRect } from "../../hooks";
+import GameControls from "./components/GameOfLifeControls";
+import Svg from "../../layout/GameContainer/components/Svg";
 
 import "./index.css";
 
 const GameOfLife = ({ width, height }) => {
-  const { data, squareSize, boardSize, runGame } = useGameData({
-    size: { width, height },
-  });
+  const { data, squareSize, boardSize, isGameRun, toggleGameRun } = useGameData(
+    {
+      size: { width, height },
+      runTime: 50,
+      squareSize: 10,
+    }
+  );
 
   const svgEl = useRef();
-
-  const { createRectangles } = useRect({
-    svgEl,
-    size: boardSize,
-    squareSize,
-  });
-
-  const [running, setRunning] = useState(false);
-  const timerId = useRef(0);
-  const runTime = 50;
-
-  const toggleGameRunning = () => setRunning((s) => !s);
+  const { drawRectangles } = useRect({ svgEl, squareSize });
 
   useEffect(() => {
-    if (running) {
-      timerId.current = setInterval(runGame, runTime);
-    } else {
-      clearInterval(timerId.current);
-    }
+    const aliveCells = data.filter(({ alive }) => alive);
 
-    return () => clearInterval(timerId.current);
-  }, [running, runGame]);
-
-  useEffect(() => {
-    createRectangles(data);
-    // createGrid();
-  }, [/* createGrid, */ createRectangles, data]);
+    drawRectangles(aliveCells);
+  }, [drawRectangles, data]);
 
   return (
     <div className="game-of-life">
-      <GameControls onClick={toggleGameRunning} isRunning={running} />
+      <GameControls onClick={toggleGameRun} isStart={isGameRun} />
       <div className="game-board">
         <Svg ref={svgEl} width={boardSize.width} height={boardSize.height} />
       </div>

@@ -1,9 +1,9 @@
-.game-of-life rect.cell.alive {
+.game-of-life rect.cell {
   fill: #bf2428;
   stroke: #fff;
 }
 
-.game-of-life rect.cell.dead {
-  fill: #fff;
-  stroke: #fff;
+.game-of-life .game-board > svg {
+  background-color: #fff;
+  border: 2px solid #bf2428;
 }
