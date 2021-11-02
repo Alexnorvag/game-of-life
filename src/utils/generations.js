@@ -22,3 +22,12 @@ export const firstGeneration = (length) => {
   const generation = Array.from({ length }, () => Math.random() > 0.5);
   return generation;
 };
+
+export const generateEmptyGrid = (numRows, numCols) => {
+  const rows = [];
+  for (let i = 0; i < numRows; i++) {
+    rows.push(Array.from(Array(numCols), () => 0));
+  }
+
+  return rows;
+};

@@ -1,37 +1,23 @@
-import { useMemo, useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import Svg from "../../layout/GameContainer/components/Svg";
 import GameControls from "./components/GameOfLifeControls";
 import { useGameData } from "./hooks/useGameData";
 import { /* useGrid, */ useRect } from "../../hooks";
-import { prevDividend } from "../../utils";
 
 import "./index.css";
 
 const GameOfLife = ({ width, height }) => {
   console.log("[GAME OF LIFE] -> render");
-  const squareSize = 10;
-  const boardSize = useMemo(
-    () => ({
-      width: prevDividend(width, squareSize),
-      height: prevDividend(height, squareSize),
-    }),
-    [width, height]
-  );
+  const { data, squareSize, boardSize, runGame } = useGameData({
+    size: { width, height },
+  });
 
   const svgEl = useRef();
   // const { createGrid } = useGrid({ svgEl, size: boardSize, squareSize });
-  const { data, /* isGameRunning, toggleGameRunning, */ runGame } = useGameData(
-    {
-      size: boardSize,
-      squareSize,
-    }
-  );
 
-  //   console.log("[GAME OF LIFE] -> data: ", data);
   const { createRectangles } = useRect({
     svgEl,
-    // data,
     size: boardSize,
     squareSize,
   });
@@ -44,13 +30,8 @@ const GameOfLife = ({ width, height }) => {
 
   useEffect(() => {
     if (running) {
-      //   timerId.current = setInterval(() => {
-      //     console.log("[INTERVAL] -> render");
-      //   }, runTime);
       timerId.current = setInterval(runGame, runTime);
-      // console.log("TIMER ID: ", timerId.current);
     } else {
-      console.log("TIMER ID: ", timerId.current);
       clearInterval(timerId.current);
     }
 

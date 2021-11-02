@@ -23,8 +23,6 @@ export const useRect = ({ svgEl, size, squareSize }) => {
 
   const createRectangles = useCallback(
     (data) => {
-      // console.log("[USE RECT] -> CREATE RECTANGLES");
-
       const svg = d3.select(svgEl.current);
 
       const cells = svg
@@ -49,28 +47,8 @@ export const useRect = ({ svgEl, size, squareSize }) => {
             .attr("y", (_, i) => yScale(rowNumber(i)))
             .attr("width", squareSize)
             .attr("height", squareSize),
-        (exit) =>
-          // exit.remove()
-          exit
-            // .attr("fill", "tomato")
-            .call((exit) =>
-              exit
-                // .transition()
-                // .duration(1200)
-                // .attr("r", 0)
-                // .style("opacity", 0)
-                .remove()
-            )
+        (exit) => exit.call((exit) => exit.remove())
       );
-      // .enter()
-      // .append("rect")
-      // .attr("class", (d) => `cell ${d ? "alive" : "dead"}`)
-      // .attr("x", (_, i) => xScale(colNumber(i)))
-      // .attr("y", (_, i) => yScale(rowNumber(i)))
-      // .attr("width", squareSize)
-      // .attr("height", squareSize);
-
-      cells.exit().remove();
     },
     [colNumber, rowNumber, svgEl, xScale, yScale, squareSize]
   );

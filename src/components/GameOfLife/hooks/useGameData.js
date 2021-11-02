@@ -1,11 +1,21 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { firstGeneration } from "../../../utils";
+import { firstGeneration, prevDividend } from "../../../utils";
 
-export const useGameData = ({ size, squareSize }) => {
+export const useGameData = ({ size }) => {
+  const squareSize = 10;
+
+  const boardSize = useMemo(
+    () => ({
+      width: prevDividend(size.width, squareSize),
+      height: prevDividend(size.height, squareSize),
+    }),
+    [size]
+  );
+
   const cellsNumber = useMemo(
-    () => (size.width * size.height) / Math.pow(squareSize, 2),
-    [size, squareSize]
+    () => (boardSize.width * boardSize.height) / Math.pow(squareSize, 2),
+    [boardSize, squareSize]
   );
   const [data, setData] = useState(() => firstGeneration(cellsNumber));
 
@@ -16,19 +26,31 @@ export const useGameData = ({ size, squareSize }) => {
 
     return neighbourIdx;
   };
-  const colsNumber = size.width / squareSize;
+
+  const colsNumber = useMemo(
+    () => boardSize.width / squareSize,
+    [boardSize, squareSize]
+  );
 
   const findNeighbors = useCallback(
     (cellIdx) => {
       let neighbours = [];
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber)]);
-      neighbours.push(data[getDataIndex(cellIdx - colsNumber + 1)]);
-      neighbours.push(data[getDataIndex(cellIdx - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber - 1)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber)]);
-      neighbours.push(data[getDataIndex(cellIdx + colsNumber + 1)]);
+      neighbours.push(
+        data[getDataIndex(cellIdx - colsNumber - 1, data.length)]
+      );
+      neighbours.push(data[getDataIndex(cellIdx - colsNumber, data.length)]);
+      neighbours.push(
+        data[getDataIndex(cellIdx - colsNumber + 1, data.length)]
+      );
+      neighbours.push(data[getDataIndex(cellIdx - 1, data.length)]);
+      neighbours.push(data[getDataIndex(cellIdx + 1, data.length)]);
+      neighbours.push(
+        data[getDataIndex(cellIdx + colsNumber - 1, data.length)]
+      );
+      neighbours.push(data[getDataIndex(cellIdx + colsNumber, data.length)]);
+      neighbours.push(
+        data[getDataIndex(cellIdx + colsNumber + 1, data.length)]
+      );
 
       return neighbours.filter((neighbour) => neighbour);
     },
@@ -50,23 +72,11 @@ export const useGameData = ({ size, squareSize }) => {
     setData((c) => c.map(updateCellState));
   }, [updateCellState]);
 
-  //   useEffect(() => {
-  //     if (running) {
-  //       timerId.current = setInterval(runGame, runTime);
-  //       console.log("TIMER ID: ", timerId.current);
-  //     } else {
-  //       clearInterval(timerId.current);
-  //     }
-
-  //     return () => clearInterval(timerId.current);
-  //   }, [running, runGame]);
-
   return {
     data,
+    squareSize,
+    boardSize,
 
     runGame,
-    // isGameRunning: running,
-
-    // toggleGameRunning,
   };
 };
