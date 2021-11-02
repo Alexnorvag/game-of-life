@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/game-of-life/static/css/main.edb513db.chunk.css",
-    "main.js": "/game-of-life/static/js/main.e12cbe5a.chunk.js",
-    "main.js.map": "/game-of-life/static/js/main.e12cbe5a.chunk.js.map",
-    "runtime-main.js": "/game-of-life/static/js/runtime-main.94f6560a.js",
-    "runtime-main.js.map": "/game-of-life/static/js/runtime-main.94f6560a.js.map",
-    "static/js/2.6ea36ab3.chunk.js": "/game-of-life/static/js/2.6ea36ab3.chunk.js",
-    "static/js/2.6ea36ab3.chunk.js.map": "/game-of-life/static/js/2.6ea36ab3.chunk.js.map",
-    "static/js/3.e935cc6b.chunk.js": "/game-of-life/static/js/3.e935cc6b.chunk.js",
-    "static/js/3.e935cc6b.chunk.js.map": "/game-of-life/static/js/3.e935cc6b.chunk.js.map",
+    "main.css": "/game-of-life/static/css/main.43d80d02.chunk.css",
+    "main.js": "/game-of-life/static/js/main.727fd236.chunk.js",
+    "main.js.map": "/game-of-life/static/js/main.727fd236.chunk.js.map",
+    "runtime-main.js": "/game-of-life/static/js/runtime-main.0761d68c.js",
+    "runtime-main.js.map": "/game-of-life/static/js/runtime-main.0761d68c.js.map",
+    "static/js/2.bc4e84e4.chunk.js": "/game-of-life/static/js/2.bc4e84e4.chunk.js",
+    "static/js/2.bc4e84e4.chunk.js.map": "/game-of-life/static/js/2.bc4e84e4.chunk.js.map",
+    "static/js/3.3303a7c4.chunk.js": "/game-of-life/static/js/3.3303a7c4.chunk.js",
+    "static/js/3.3303a7c4.chunk.js.map": "/game-of-life/static/js/3.3303a7c4.chunk.js.map",
     "index.html": "/game-of-life/index.html",
-    "static/css/main.edb513db.chunk.css.map": "/game-of-life/static/css/main.edb513db.chunk.css.map",
-    "static/js/2.6ea36ab3.chunk.js.LICENSE.txt": "/game-of-life/static/js/2.6ea36ab3.chunk.js.LICENSE.txt",
+    "static/css/main.43d80d02.chunk.css.map": "/game-of-life/static/css/main.43d80d02.chunk.css.map",
+    "static/js/2.bc4e84e4.chunk.js.LICENSE.txt": "/game-of-life/static/js/2.bc4e84e4.chunk.js.LICENSE.txt",
     "static/media/pause.6e1a48e5.svg": "/game-of-life/static/media/pause.6e1a48e5.svg",
     "static/media/play.6553eab3.svg": "/game-of-life/static/media/play.6553eab3.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.94f6560a.js",
-    "static/js/2.6ea36ab3.chunk.js",
-    "static/css/main.edb513db.chunk.css",
-    "static/js/main.e12cbe5a.chunk.js"
+    "static/js/runtime-main.0761d68c.js",
+    "static/js/2.bc4e84e4.chunk.js",
+    "static/css/main.43d80d02.chunk.css",
+    "static/js/main.727fd236.chunk.js"
   ]
 }
